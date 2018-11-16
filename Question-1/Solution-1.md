@@ -46,7 +46,7 @@ docker version
 ## Première image:
 
 ```
-sudo docker hello-world
+sudo docker run hello-world
 ```
 
 #### Docker ne peut pas trouver cette image en local donc il va la chercher en ligne.
@@ -276,6 +276,10 @@ Vérifions:
 docker images -a
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ```
+
+Conteneurs et Images sont stockés sur votre machine. Cependant, en fonction de votre configuration, ils peuvent être à différents endroits. Cas commun: /var/lib/docker
+
+[https://stackoverflow.com/questions/19234831/where-are-docker-images-stored-on-the-host-machine](https://stackoverflow.com/questions/19234831/where-are-docker-images-stored-on-the-host-machine)
 
 
 ✅
