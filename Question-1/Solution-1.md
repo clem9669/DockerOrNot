@@ -1,4 +1,4 @@
-##Installation:
+## Installation:
 
 ```
 sudo apt update
@@ -43,16 +43,16 @@ docker version
 
 ```
 
-##Première image:
+## Première image:
 
 ```
 sudo docker hello-world
 ```
 
-####Docker ne peut pas trouver cette image en local donc il va la chercher en ligne.
-####Et la 'pull'.
+#### Docker ne peut pas trouver cette image en local donc il va la chercher en ligne.
+#### Et la 'pull'.
 
-##Résultat:
+## Résultat:
 
 ```
 Unable to find image 'hello-world:latest' locally
