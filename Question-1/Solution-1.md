@@ -85,7 +85,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
-## Aide docker:
+## Aide Docker:
 
 Comme pour toutes les commandes, vous pouvez saisir :
 
@@ -144,7 +144,7 @@ Ce référé à **docker -h**
 docker inspect <image id/repository name>
 ```
 
-Vous aurez cependant remarquer d'autres intéréssante informations comme:
+Vous aurez cependant remarquer d'autres intéréssantes informations comme:
 
 ```
 bridge               gracious_kowalevski  hello-world:latest   host                 none
@@ -276,6 +276,9 @@ Vérifions:
 docker images -a
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ```
+
+
+---
 
 Conteneurs et Images sont stockés sur votre machine. Cependant, en fonction de votre configuration, ils peuvent être à différents endroits. Cas commun: /var/lib/docker
 
