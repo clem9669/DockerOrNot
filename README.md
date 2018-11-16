@@ -12,4 +12,3 @@
 * https://docs.docker.com/glossary/
 * https://docker-curriculum.com/#terminology
 * https://docs.microsoft.com/fr-fr/dotnet/standard/microservices-architecture/container-docker-introduction/docker-terminology
-*
