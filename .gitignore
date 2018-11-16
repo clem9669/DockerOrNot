@@ -1,0 +1,11 @@
+# Project dependencies
+.cache
+
+# Build directory
+.DS_Store
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
