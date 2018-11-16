@@ -278,7 +278,7 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 ```
 
 
----
+---------
 
 Conteneurs et Images sont stockés sur votre machine. Cependant, en fonction de votre configuration, ils peuvent être à différents endroits. Cas commun: /var/lib/docker
 
