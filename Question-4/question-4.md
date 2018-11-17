@@ -3,7 +3,7 @@
 L'objectif de cet exercice est de léver le voile sur les communications intra-conteneurs dans Docker sans toutefois rentrer trop dans les subtilités de la gestion réseau de Docker.
 À l'issue de ce TP, vous aurez compris les bases du réseau Docker, ainsi que les différentes techniques pour tirer tous les bénéfices d'une infrastructure "dockerisée".
 
-Il faut savoir que Docker repose sur la librairie ```libnetwork``` pour la gestion des communications et de base, il fournit quatres type de réseau :
+Il faut savoir que Docker repose sur la librairie ```libnetwork``` pour la gestion des communications et de base, il fournit quatres type de réseau (driver libnetwork) :
 
 
 * **bridge** : crée un réseau interne pour vos conteneurs ;
@@ -13,4 +13,11 @@ Il faut savoir que Docker repose sur la librairie ```libnetwork``` pour la gesti
 
 
 Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe des plugins pour étendre ces possibilités de gestion de réseau. 
+
+
+1. a) Vérifiez la liste des réseaux disponibles pour vos conteneurs au niveau de votre démon Docker sur votre hôte. Que remarquez-vous ?
+   
+   b) Inspectez le sous-réseau par defaut de Docker et donner son addresse réseau.
+   
+   c) Où se trouve l'interface de passerelle par défaut du réseau de la question précédente.
  
