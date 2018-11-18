@@ -20,4 +20,20 @@ Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe
    b) Inspectez le sous-réseau par defaut de Docker et donner son addresse réseau.
    
    c) Où se trouve l'interface de passerelle par défaut du réseau de la question précédente.
- 
+2. La communication des conteneurs entre eux et avec le monde extérieure est contrôlée par le fait que les paquets IP soient transmises (_forwarded_)  par la machine hôte et qu'elles soient pas bloquées par un pare-feu. Tous ces mécanismes sont configurables au niveau du noyau du système hôte de Docker.
+   
+   a) Recupérez l'image officielle du serveur HTTP d'Apache (__httpd__) depuis le registre public de Docker. Lancez un serveur httpd dans un conteneur nommé __mon-serveur__ de sorte qu'on arrive à l'interroger depuis un navigateur de la machine hôte avec une addresse autre que l'adresse réseau fourni par le bridge. 
+   
+   b) Recupérez l'image officielle d'ubuntu depuis le registre public de Docker. Assurez-vous que notre serveur de la question précédente tourne toujours. Exécutez la commande suivante : 
+      ```youtrack
+         docker run --rm -it --name container2 --net container:mon-serveur ubuntu
+      ```
+      Installez le paquet **net-tools** et lancez la commande ```netstat -al``` .
+      
+      Que remarquiez-vous? Qu'est -ce que vous pouvez dire entre les deux containeurs container2 et mon-serveur?
+      
+   c) Arrêtez et supprimez tous les containers lancés précédents. Lancez un conteneur nommé _mon-serveur_ en tache de fond contenant le serveur httpd.
+     
+     + Trouvez l'adresse ip du conteneur _mon-serveur_
+     + Lancez un container nommé _container1_ basé sur ubuntu et verifiez que depuis ce conteneur, on peut interroger le serveur httpd en utilisant un navigateur leger comme **curl**.
+     + Lancez un autre container nommé _container2_ basé sur ubuntu en ajoutant l'option **- link mon-serveur:serveur** et verifiez que depuis ce conteneur, on peut interroger le serveur httpd en utilisant un navigateur leger comme **curl** sans connaître l'adresse ip du serveur.
