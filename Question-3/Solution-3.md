@@ -55,7 +55,9 @@ docker rm MonJenkins2
 ```
 
 j)- Vérifier (à l’aide de la commande appropriée) que le volume précédemment créé est toujours disponible
-```docker volume ls```
+```
+docker volume ls
+```
 
 
 **2- Les bind mounts**
