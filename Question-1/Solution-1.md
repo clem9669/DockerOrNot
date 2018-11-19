@@ -277,10 +277,50 @@ docker images -a
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ```
 
+### Choisir une autre image depuis Docker HUB:
+
+Pour avoir quelques idées de ce qui existe rendez-vous sur [https://hub.docker.com/explore](https://hub.docker.com/explore).
+
+```
+docker search -h
+docker search wordpress
+```
+Pour télécharger l'image que vous avez selectionné, il vous suffit de saisir:
+
+```
+docker pull <image choisie>
+
+docker pull wordpress
+Using default tag: latest
+latest: Pulling from library/wordpress
+a5a6f2f73cd8: Pull complete
+633e0d1cd2a3: Pull complete
+fcdfdf7118ba: Pull complete
+4e7dc76b1769: Pull complete
+c425447c8835: Pull complete
+033380e6e095: Pull complete
+13cbf79d7810: Pull complete
+3b3aab261548: Pull complete
+3a7622312067: Pull complete
+6b070aefa7b0: Pull complete
+85e781f15c7b: Pull complete
+29f66381a68b: Pull complete
+447650cf1bc0: Pull complete
+4b4044f879ea: Pull complete
+769f3190a4a0: Pull complete
+9dd60f975192: Pull complete
+5c0f87802f63: Pull complete
+0fc0f7f7070c: Pull complete
+8bfebd3b393c: Pull complete
+3460b7ca1d8b: Pull complete
+Digest: sha256:d8386c593c04b5c657a524925c0090a4706e78af5079302c7daf2df3d453c1b8
+Status: Downloaded newer image for wordpress:latest
+
+```
 
 ---------
 
-Conteneurs et Images sont stockés sur votre machine. Cependant, en fonction de votre configuration, ils peuvent être à différents endroits. Cas commun: /var/lib/docker
+Les Conteneurs sont stockés sur votre machine. Cependant, en fonction de votre configuration, ils peuvent être à différents endroits. Cas commun: /var/lib/docker
 
 [https://stackoverflow.com/questions/19234831/where-are-docker-images-stored-on-the-host-machine](https://stackoverflow.com/questions/19234831/where-are-docker-images-stored-on-the-host-machine)
 

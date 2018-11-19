@@ -32,6 +32,10 @@ Toutes les options et informations que vous verrez, vous serrons utile par la su
 
 10. Stopper et supprimer un conteneur/image
 
+11. A l'adresse, [https://hub.docker.com/explore](https://hub.docker.com/explore), choissez une image docker et téléchargez-la.
+
+12. Revisez les commandes précédentes sur cette nouvelle image.
+
 **Par la suite des questions vous aurez besoin d'autres commandes, il est donc vivement conseillés de lire à quoi servent les différentes options.**
 
 
