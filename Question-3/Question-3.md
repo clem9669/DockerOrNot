@@ -34,6 +34,8 @@ j)- Vérifier (à l’aide de la commande appropriée) que le volume précédemm
 
 
 **2- Les bind mounts**
+Environnement de développement 
+Lancer un conteneur avec bind mount pointant sur le dossier de code source sur la machine hôte
 
 
 [Question-2](https://github.com/clem9669/DockerOrNot/blob/master/Question-2/Question-2.md) & [Question-4](https://github.com/clem9669/DockerOrNot/blob/master/Question-4/question-4.md)
