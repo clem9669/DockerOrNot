@@ -36,7 +36,8 @@ j)- Vérifier (à l’aide de la commande appropriée) que le volume précédemm
 **2- Les bind mounts**
 
 Environnement de développement 
-Lancer un conteneur avec bind mount pointant sur le dossier de code source sur la machine hôte
+Lancer un conteneur basé sur une image debian+apache+php, avec bind mount pointant sur le dossier /var/www sur le répertoire contenant le code source sur la machine hôte
+On peut donc observer les résultat du développement dans le conteneur au fûr et à mesure que l'on modifie le code source depuis la machine hôte.
 
 
 
