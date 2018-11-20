@@ -32,13 +32,30 @@ Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe
 
       Que remarquiez-vous? Qu'est -ce que vous pouvez dire entre les deux containeurs container2 et mon-serveur?
 
-   c) Arrêtez et supprimez tous les containers lancés précédents. Lancez un conteneur nommé _mon-serveur_ en tache de fond contenant le serveur httpd.
+   c) Arrêtez et supprimez tous les containers lancés précédemment. Lancez un conteneur nommé _mon-serveur_ en tache de fond contenant le serveur httpd.
 
      + Trouvez l'adresse ip du conteneur _mon-serveur_
-     + Lancez un container nommé _container1_ basé sur ubuntu et verifiez que depuis ce conteneur, on peut interroger le serveur httpd en utilisant un navigateur leger comme **curl**.
+     + Lancez un container nommé _container1_ basé sur ubuntu et verifiez que depuis ce dernier, on peut interroger le serveur httpd en utilisant un navigateur leger comme **curl**.
      + Lancez un autre container nommé _container2_ basé sur ubuntu en ajoutant l'option **- link mon-serveur:serveur** et verifiez que depuis ce conteneur, on peut interroger le serveur httpd en utilisant un navigateur leger comme **curl** sans connaître l'adresse ip du serveur.
 
-
+3. Dans cette partie, nous allons voir comment créer un nouvel réseau de type bridge dans Docker.
+    
+   a) Familiarisez-vous avec la commande ```docker network``` et ses options en lisant le man ```man docker network``` ou l'aide ```docker network -h```,```docker network create --help```, ext...
+   
+   b) Créez un nouveau réseau nommé __chat__ avec addresse _192.168.1.0/24_ sous les spécifications suivantes :
+        
+      - fournisez un passerelle par defaut pour ce réseau
+      - nommez __chat0__ le nouveu pont virtuel Ethernet qui sert de passerelle
+      - attribuez une plage d'addresse de 14 clients pour ce réseau 
+        
+        Vérifiez que votre réseau est bien crée avec les configurations valides.
+        
+   c) C'est bien beau d'avoir créer un réseau bridge dans Docker mais il faut maintenant l'utuliser dans des conteneurs. Pour ce faire, nous allons simmuler un mini-système client-serveur de messagerie (**un chat**).
+      
+      + Récuperéz le dossier [chat](chat) dans votre hôte.
+      + Créez une image Docker nommé __mypython3__ basé sur l'image ubuntu dont on installera python3 à l'intérieure et dont on ajoutera le dossier [chat](chat) dans le répertoire _/home/_.(Piste: créez un Dockerfile ou faire un commit sur une image avec python installé à l'intérieure)
+      + Lancez un conteneur nommé _chat_serveur_ basé sur l'image _mypython3_ en le connectant dans le réseau **chat** et récupérez son addresse ip. 
+   
 
 
 

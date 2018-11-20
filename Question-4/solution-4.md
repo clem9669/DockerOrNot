@@ -116,8 +116,145 @@
       172.17.0.3      16fe84b74e0e
       root@16fe84b74e0e:/#
    ```
-3. 
-
+3. a) 
+   ```youtrack
+      debian@debian:~$ docker network -h
+      Flag shorthand -h has been deprecated, please use --help
+      
+      Usage:  docker network COMMAND
+      
+      Manage networks
+      
+      Commands:
+        connect     Connect a container to a network
+        create      Create a network
+        disconnect  Disconnect a container from a network
+        inspect     Display detailed information on one or more networks
+        ls          List networks
+        prune       Remove all unused networks
+        rm          Remove one or more networks
+      
+      Run 'docker network COMMAND --help' for more information on a command.
+      debian@debian:~$ 
+   ```
+   ```youtrack
+      debian@debian:~$ docker network create -h
+      Flag shorthand -h has been deprecated, please use --help
+      
+      Usage:  docker network create [OPTIONS] NETWORK
+      
+      Create a network
+      
+      Options:
+            --attachable           Enable manual container attachment
+            --aux-address map      Auxiliary IPv4 or IPv6 addresses used by Network driver (default map[])
+            --config-from string   The network from which copying the configuration
+            --config-only          Create a configuration only network
+        -d, --driver string        Driver to manage the Network (default "bridge")
+            --gateway strings      IPv4 or IPv6 Gateway for the master subnet
+            --ingress              Create swarm routing-mesh network
+            --internal             Restrict external access to the network
+            --ip-range strings     Allocate container ip from a sub-range
+            --ipam-driver string   IP Address Management Driver (default "default")
+            --ipam-opt map         Set IPAM driver specific options (default map[])
+            --ipv6                 Enable IPv6 networking
+            --label list           Set metadata on a network
+        -o, --opt map              Set driver specific options (default map[])
+            --scope string         Control the network's scope
+            --subnet strings       Subnet in CIDR format that represents a network segment
+      debian@debian:~$ 
+   ```
+   b) Prenons l'addresse __192.168.1.254__ comme addresse de passerelle. Pour avoir 14 clients sans gaspillé l'addresse de notre réseau, il faut prendre le masque sous-réseau __192.168.1.0/28__.
+      On a donc la configuration suivante :
+   ```youtrack
+      debian@debian:~$ docker network create --subnet 192.168.1.0/24 --gateway 192.168.1.254 --ip-range 192.168.1.0/28 -o "com.docker.network.bridge.name=chat0" chat
+      b3e235ea3cc1e3d6168d6cc01bb32e9a69f6a334a9a9411ef2d29b21e935f254
+      debian@debian:~$ docker network inspect chat 
+      [
+          {
+              "Name": "chat",
+              "Id": "b3e235ea3cc1e3d6168d6cc01bb32e9a69f6a334a9a9411ef2d29b21e935f254",
+              "Created": "2018-11-20T19:06:53.634083266+01:00",
+              "Scope": "local",
+              "Driver": "bridge",
+              "EnableIPv6": false,
+              "IPAM": {
+                  "Driver": "default",
+                  "Options": {},
+                  "Config": [
+                      {
+                          "Subnet": "192.168.1.0/24",
+                          "IPRange": "192.168.1.0/28",
+                          "Gateway": "192.168.1.254"
+                      }
+                  ]
+              },
+              "Internal": false,
+              "Attachable": false,
+              "Ingress": false,
+              "ConfigFrom": {
+                  "Network": ""
+              },
+              "ConfigOnly": false,
+              "Containers": {},
+              "Options": {
+                  "com.docker.network.bridge.name": "chat0"
+              },
+              "Labels": {}
+          }
+      ]
+      debian@debian:~$  
+   ```
+   Au niveau de la machine hôte, on a bien notre pont virtuel __chat0__ :
+   ```youtrack
+      root@debian:/home/debian# ifconfig
+      chat0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+              inet 192.168.1.254  netmask 255.255.255.0  broadcast 192.168.1.255
+              ether 02:42:e6:e0:8d:e1  txqueuelen 0  (Ethernet)
+              RX packets 0  bytes 0 (0.0 B)
+              RX errors 0  dropped 0  overruns 0  frame 0
+              TX packets 0  bytes 0 (0.0 B)
+              TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+      
+      docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+              inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+              inet6 fe80::42:f3ff:feae:73c8  prefixlen 64  scopeid 0x20<link>
+              ether 02:42:f3:ae:73:c8  txqueuelen 0  (Ethernet)
+              RX packets 0  bytes 0 (0.0 B)
+              RX errors 0  dropped 0  overruns 0  frame 0
+              TX packets 25  bytes 3434 (3.3 KiB)
+              TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+      
+      enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+              inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+              inet6 fe80::a00:27ff:fe9f:ac76  prefixlen 64  scopeid 0x20<link>
+              ether 08:00:27:9f:ac:76  txqueuelen 1000  (Ethernet)
+              RX packets 2919  bytes 1050725 (1.0 MiB)
+              RX errors 0  dropped 0  overruns 0  frame 0
+              TX packets 1827  bytes 179310 (175.1 KiB)
+              TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+      
+      lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+              inet 127.0.0.1  netmask 255.0.0.0
+              inet6 ::1  prefixlen 128  scopeid 0x10<host>
+              loop  txqueuelen 1  (Boucle locale)
+              RX packets 10  bytes 558 (558.0 B)
+              RX errors 0  dropped 0  overruns 0  frame 0
+              TX packets 10  bytes 558 (558.0 B)
+              TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+      
+      root@debian:/home/debian# 
+   ```
+   c) Création de l'image __mypython3__:
+   + Contenu du Dockerfile placé dans le dossier _/home/Dockerfile_ de l'hôte ainsi que le dossier [chat]():
+        ```dockerfile
+           FROM ubuntu
+           ADD chat/ /home/
+           RUN apt-get update && apt-get install -y python3
+           LABEL description="mypython3"
+        ```
+        Création de l'image avec la commande  ```docker build -t mypython3 /home/ ```
+   + 
 4.
 
 5.
