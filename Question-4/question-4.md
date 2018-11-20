@@ -52,9 +52,11 @@ Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe
         
    c) C'est bien beau d'avoir créer un réseau bridge dans Docker mais il faut maintenant l'utuliser dans des conteneurs. Pour ce faire, nous allons simmuler un mini-système client-serveur de messagerie (**un chat**).
       
-      + Récuperéz le dossier [chat](chat) dans votre hôte.
-      + Créez une image Docker nommé __mypython3__ basé sur l'image ubuntu dont on installera python3 à l'intérieure et dont on ajoutera le dossier [chat](chat) dans le répertoire _/home/_.(Piste: créez un Dockerfile ou faire un commit sur une image avec python installé à l'intérieure)
-      + Lancez un conteneur nommé _chat_serveur_ basé sur l'image _mypython3_ en le connectant dans le réseau **chat** et récupérez son addresse ip. 
+      + Récuperéz le dossier [chat](./chat) dans votre hôte.
+      + Créez une image Docker nommé __mypython2__ basé sur l'image ubuntu dont on installera python2.7 à l'intérieure et dont on ajoutera le dossier [chat](./chat) dans le répertoire _/home/_.(Piste: créez un Dockerfile ou faire un commit sur une image avec python installé à l'intérieure)
+      + Lancez un conteneur nommé __chat_serveur__ basé sur l'image _mypython2_ en le connectant dans le réseau **chat** et récupérez son addresse ip. Executez le fichier serveur.py qui se trouve dans _/home/_.
+      + Lancez trois conteneurs basés sur l'image _mypython2_ qui joueront le rôle des clients au près du serveur __chat_serveur__. Executez le fichier client.py pour chaque client.
+      + Vérifiez que les clients peuvent se chater entre eux.
    
 
 

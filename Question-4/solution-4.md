@@ -245,16 +245,50 @@
       
       root@debian:/home/debian# 
    ```
-   c) Création de l'image __mypython3__:
-   + Contenu du Dockerfile placé dans le dossier _/home/Dockerfile_ de l'hôte ainsi que le dossier [chat]():
+   c) Création de l'image __mypython2__:
+   + Contenu du Dockerfile placé dans le dossier _/home/Dockerfile_ de l'hôte ainsi que le dossier [chat](./chat):
         ```dockerfile
            FROM ubuntu
            ADD chat/ /home/
-           RUN apt-get update && apt-get install -y python3
-           LABEL description="mypython3"
+           RUN apt-get update && apt-get install -y python
+           LABEL description="mypython2"
         ```
-        Création de l'image avec la commande  ```docker build -t mypython3 /home/ ```
-   + 
-4.
+        Création de l'image avec la commande  ```docker build -t mypython2 /home/ ```
+   + Lancement du conteneur __chat_serveur__:
+       ```youtrack
+          debian@debian:~/Téléchargements$ docker run -it --rm --name chat_serveur --network chat mypython2
+          root@7f47a29dcf76:/# cd /home/
+          root@7f47a29dcf76:/home# python server.py 
+                                          SERVER WORKING 
+          
+        ```
+        Son addresse ip est :
+        ```youtrack
+           debian@debian:/home$ docker inspect chat_serveur --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
+           192.168.1.1
+           debian@debian:/home$ 
+        ```
+    + Lancement des clients :
+        ```youtrack
+           debian@debian:~$ docker run --rm -it --network chat mypython2
+           root@f236377f02ee:/# cd /home/
+           root@f236377f02ee:/home# python client.py 192.168.1.1
+            CREATING NEW ID:
+            Enter username: Alice
+            Welcome to chat room. Enter 'exit' anytime to exit
+            You: Je suis Alice
+            Bob: Je suis bob
+            You: exit
+           DISCONNECTED!!
+            
+           root@f236377f02ee:/home# 
+        ```
+        Vérification au niveau serveur :
+        ```youtrack
+           root@7f47a29dcf76:/home# python server.py 
+                                           SERVER WORKING 
+           Client (192.168.1.2, 35764) connected  [ Bob ]
+           Client (192.168.1.3, 54236) connected  [ Alice ]
+           Client (192.168.1.3, 54236) is offline  [ Alice ]
+        ```
 
-5.
