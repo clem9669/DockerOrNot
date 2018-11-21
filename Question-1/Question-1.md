@@ -39,4 +39,6 @@ Toutes les options et informations que vous verrez, vous serrons utile par la su
 **Par la suite des questions vous aurez besoin d'autres commandes, il est donc vivement conseillés de lire à quoi servent les différentes options.**
 
 
-[Question-2](https://github.com/clem9669/DockerOrNot/blob/master/Question-2/Question-2.md)
+[Question-2](https://github.com/clem9669/DockerOrNot/blob/master/Question-2/Question-2.md) &
+[Question-3](https://github.com/clem9669/DockerOrNot/blob/master/Question-3/Question-3.md) &
+[Question-4](https://github.com/clem9669/DockerOrNot/blob/master/Question-4/Question-4.md)

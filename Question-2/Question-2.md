@@ -24,7 +24,7 @@ ADD # Permet de copier un fichier de l'hôte ou depuis une URL vers l'image, per
 LABEL # Des méta-données utiles pour certain logiciel de gestion de conteneur, comme rancher ou swarm, ou tout simplement pour mettre des informations sur l'image.
 ENTRYPOINT # Commande exécutée au démarrage du conteneur, non modifiable, utilisée pour package une commande
 VOLUME # Crée une partition spécifique
-    
+
  ```
 3- Editer le fichier "Dockerfile"
 Instructions:
@@ -40,15 +40,15 @@ ENV APACHE_LOG_DIR /var/web/log/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_RUN_DIR /var/run/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
-    
+
  ```
  - Installer apache
   ```
  RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get -y -q upgrade && apt-get -y -q install apache2
-  
+
   ```
   - Exposer les ports 80 et 443 pour apache
-  
+
   - Ajouter la commande a executer par défaut au démarrage du conteneur
    ```
   CMD ["apache2ctl","-D","FOREGROUND"]
@@ -67,6 +67,7 @@ Tester le lancement d'apache au travers cette port
 
 
 9- Creer une archive tar de notre image qui pourra être partager.
- 
 
-[Question-1](https://github.com/clem9669/DockerOrNot/blob/master/Question-1/Question-1.md) & [Question-3](https://github.com/clem9669/DockerOrNot/blob/master/Question-3/Question-3.md)
+
+[Question-1](https://github.com/clem9669/DockerOrNot/blob/master/Question-1/Question-1.md) & [Question-3](https://github.com/clem9669/DockerOrNot/blob/master/Question-3/Question-3.md) &
+[Question-4](https://github.com/clem9669/DockerOrNot/blob/master/Question-2/Question-2.md)
