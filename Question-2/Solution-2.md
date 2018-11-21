@@ -116,3 +116,13 @@ $ docker rm apache
 $ docker run -d -p 80:80 --name=apache uvsq/apache 
 ```
 
+9- Création d'une image tar qui pourra être partagé
+
+```
+$ docker save -o apache.tar uvsq/apache
+$ ls
+Dockerfile  apache.tar
+
+```
+
+
