@@ -66,16 +66,7 @@ Tester le lancement d'apache au travers cette port
 8- Modifier le port choisi par Docker pour qu'elle soit 80
 
 
-9- Creer une archive tar de notre image qui pourra etre partager.
+9- Creer une archive tar de notre image qui pourra être partager.
  
-  
-  
-
- 
-
-
-
-
-
 
 [Question-1](https://github.com/clem9669/DockerOrNot/blob/master/Question-1/Question-1.md) & [Question-3](https://github.com/clem9669/DockerOrNot/blob/master/Question-3/Question-3.md)
