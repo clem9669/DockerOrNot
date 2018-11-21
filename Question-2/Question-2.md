@@ -1,4 +1,4 @@
-Manipulation des images dans Docker
+# Creation de son propre image dans Docker
 
 L'objectif de cette question est de savoir créer et gerer ses propres images
 
