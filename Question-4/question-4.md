@@ -15,19 +15,20 @@ Il faut savoir que Docker repose sur la librairie ```libnetwork``` pour la gesti
 Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe des plugins pour étendre ces possibilités de gestion de réseau.
 
 
-1. a) Vérifiez la liste des réseaux disponibles pour vos conteneurs au niveau de votre démon Docker sur votre hôte. Que remarquez-vous ?
+1. a) Familiarisez-vous avec la commande ```docker network``` et ses options en lisant le man ```man docker network``` ou l'aide ```docker network -h```.
 
-   b) Inspectez le sous-réseau par defaut de Docker et donner son addresse réseau.
+   b) Vérifiez la liste des réseaux disponibles pour vos conteneurs au niveau de votre démon Docker sur votre hôte. Que remarquez-vous ?
 
-   c) Où se trouve l'interface de passerelle par défaut du réseau de la question précédente.
+   c) Inspectez le sous-réseau par defaut de Docker et donner son addresse réseau.
+
+   d) Où se trouve l'interface de passerelle par défaut du réseau de la question précédente.
 2. La communication des conteneurs entre eux et avec le monde extérieure est contrôlée par le fait que les paquets IP soient transmises (_forwarded_)  par la machine hôte et qu'elles soient pas bloquées par un pare-feu. Tous ces mécanismes sont configurables au niveau du noyau du système hôte de Docker.
 
    a) Recupérez l'image officielle du serveur HTTP d'Apache (__httpd__) depuis le registre public de Docker. Lancez un serveur httpd dans un conteneur nommé __mon-serveur__ de sorte qu'on arrive à l'interroger depuis un navigateur de la machine hôte avec une addresse autre que l'adresse réseau fourni par le bridge.
 
    b) Recupérez l'image officielle d'ubuntu depuis le registre public de Docker. Assurez-vous que notre serveur de la question précédente tourne toujours. Exécutez la commande suivante :
-      ```youtrack
-         docker run --rm -it --name container2 --net container:mon-serveur ubuntu
-      ```
+      > $ docker run --rm -it --name container2 --net container:mon-serveur ubuntu
+      
       Installez le paquet **net-tools** et lancez la commande ```netstat -al``` .
 
       Que remarquiez-vous? Qu'est -ce que vous pouvez dire entre les deux containeurs container2 et mon-serveur?
@@ -40,7 +41,7 @@ Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe
 
 3. Dans cette partie, nous allons voir comment créer un nouvel réseau de type bridge dans Docker.
     
-   a) Familiarisez-vous avec la commande ```docker network``` et ses options en lisant le man ```man docker network``` ou l'aide ```docker network -h```,```docker network create --help```, ext...
+   a) Familiarisez-vous avec la commande ```docker network create``` et ses options en lisant le man ```man docker network create``` ou l'aide ```docker network create --help```, ext...
    
    b) Créez un nouveau réseau nommé __chat__ avec addresse _192.168.1.0/24_ sous les spécifications suivantes :
         
@@ -57,6 +58,7 @@ Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe
       + Lancez un conteneur nommé __chat_serveur__ basé sur l'image _mypython2_ en le connectant dans le réseau **chat** et récupérez son addresse ip. Executez le fichier serveur.py qui se trouve dans _/home/_.
       + Lancez trois conteneurs basés sur l'image _mypython2_ qui joueront le rôle des clients au près du serveur __chat_serveur__. Executez le fichier client.py pour chaque client.
       + Vérifiez que les clients peuvent se chater entre eux.
+      + Supprimez le réseau **chat**. 
    
 
 
@@ -66,4 +68,7 @@ Docker utilise le réseau _bridge_ par defaut. À titre d'information, il existe
 
 
 
+  [Question-1](https://github.com/clem9669/DockerOrNot/blob/master/Question-1/Question-1.md)
+  [Question-2](https://github.com/clem9669/DockerOrNot/blob/master/Question-2/Question-2.md)
   [Question-3](https://github.com/clem9669/DockerOrNot/blob/master/Question-3/Question-3.md)
+  

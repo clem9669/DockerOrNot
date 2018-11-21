@@ -118,26 +118,6 @@
    ```
 3. a) 
    ```youtrack
-      debian@debian:~$ docker network -h
-      Flag shorthand -h has been deprecated, please use --help
-      
-      Usage:  docker network COMMAND
-      
-      Manage networks
-      
-      Commands:
-        connect     Connect a container to a network
-        create      Create a network
-        disconnect  Disconnect a container from a network
-        inspect     Display detailed information on one or more networks
-        ls          List networks
-        prune       Remove all unused networks
-        rm          Remove one or more networks
-      
-      Run 'docker network COMMAND --help' for more information on a command.
-      debian@debian:~$ 
-   ```
-   ```youtrack
       debian@debian:~$ docker network create -h
       Flag shorthand -h has been deprecated, please use --help
       
@@ -291,4 +271,5 @@
            Client (192.168.1.3, 54236) connected  [ Alice ]
            Client (192.168.1.3, 54236) is offline  [ Alice ]
         ```
-
+        Suppression du réseau :
+        > $ docker network rm chat
