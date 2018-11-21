@@ -58,7 +58,3 @@ j)- Vérifier (à l’aide de la commande appropriée) que le volume précédemm
 ```
 docker volume ls
 ```
-
-
-**2- Les bind mounts**
-
