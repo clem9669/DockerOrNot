@@ -3,21 +3,22 @@
 1 - Creation du repertoire dans le home
 
 ```
-mkdir /home/uvsq/Docker
+$ cd /home/uvsq
+$ mkdir Docker
 
 ```
 
 2- Création du fichier dockerfile dans le repertoire Docker
 
 ```
-touch Dockerfile
+$ touch Dockerfile
 
 ```
 
 3- Edition du fichier Dockerfile pour créer notre image apache
 
 ```
-vi Dockerfile
+$ vi Dockerfile
 
 ```
 Contenu du fichier
@@ -49,7 +50,7 @@ docker build -t [imagename]:[tag] [repertoire du dossier de Dockerfile]
 ```
 Dans notre cas, vu qu'on est deja dans le dossier , la commande est la suivante : 
 ```
-docker build -t='uvsq/apache' .
+$ docker build -t='uvsq/apache' .
 
 ```
 
@@ -75,7 +76,7 @@ Successfully built cd5f19931229
 5- Verfication de la création de l'image
 
 ```
-docker image.
+$ docker images
 
 ```
 Resultat de la commande
