@@ -109,12 +109,18 @@ Le port utiliser n'est pas le port 80 mais ce dernier a été mappé sur un autr
 
 Faisons un test en ouvrant votre navigateur et en se connectant sur notre machine locale (Hôte) et sur le port docker:
 
+![](https://drive.google.com/open?id=11avwTmlmyMuIIIDPPkl0q09trPGIFq7l)
+
 8- Choisir le port 80
 
 ```
 $ docker rm apache
 $ docker run -d -p 80:80 --name=apache uvsq/apache 
 ```
+
+Connexion depuis un navigateur
+
+![](https://drive.google.com/open?id=14JpMCsU5ooIP9L6F82LzLHkKMOnXr3kb)
 
 9- Création d'une image tar qui pourra être partagé
 
