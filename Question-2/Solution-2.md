@@ -1,3 +1,8 @@
+[Question-1](https://github.com/clem9669/DockerOrNot/tree/master/Question-1/question-1.md) &
+[Question-2](https://github.com/clem9669/DockerOrNot/tree/master/Question-2/question-2.md) &
+[Question-3](https://github.com/clem9669/DockerOrNot/tree/master/Question-3/question-3.md) &
+[Question-4](https://github.com/clem9669/DockerOrNot/tree/master/Question-4/question-4.md)
+
 # Corrigé de l'[exercice 2](https://github.com/clem9669/DockerOrNot/blob/master/Question-2/Question-2.md)
 ---
 1 - Creation du repertoire dans le home
@@ -48,7 +53,7 @@ La syntaxe de la commande est la suivante:
 ```
 docker build -t [imagename]:[tag] [repertoire du dossier de Dockerfile]
 ```
-Dans notre cas, vu qu'on est deja dans le dossier , la commande est la suivante : 
+Dans notre cas, vu qu'on est deja dans le dossier , la commande est la suivante :
 ```
 $ docker build -t='uvsq/apache' .
 
@@ -113,7 +118,7 @@ Faisons un test en ouvrant votre navigateur et en se connectant sur notre machin
 
 ```
 $ docker rm apache
-$ docker run -d -p 80:80 --name=apache uvsq/apache 
+$ docker run -d -p 80:80 --name=apache uvsq/apache
 ```
 
 9- Création d'une image tar qui pourra être partagé
@@ -124,5 +129,3 @@ $ ls
 Dockerfile  apache.tar
 
 ```
-
-

@@ -1,20 +1,25 @@
+[Question-1](https://github.com/clem9669/DockerOrNot/tree/master/Question-1/question-1.md) &
+[Question-2](https://github.com/clem9669/DockerOrNot/tree/master/Question-2/question-2.md) &
+[Question-3](https://github.com/clem9669/DockerOrNot/tree/master/Question-3/question-3.md) &
+[Question-4](https://github.com/clem9669/DockerOrNot/tree/master/Question-4/question-4.md) 
+
 ## Exploitation d'une infrastructure réseau dans Docker ##
 
 1. Utilisation de la commande ``` docker network ls ```:
     ```
-    debian@debian:~$ docker network ls 
+    debian@debian:~$ docker network ls
     NETWORK ID          NAME                DRIVER              SCOPE
     74ca54c94e20        bridge              bridge              local
     d445f212f1f3        host                host                local
     af0536b47bba        none                null                local
-    
+
     ```
-    
+
     On remarque que Docker est installé par défaut avec trois sous-réseaux : _bridge_,_host_ et _none_.
-    
+
     On sait que Docker utilise le sous-réseau _bridge_ par défaut. On l'inspècte avec la commande ```docker network inspect bridge``` :
     ```$xslt
-       debian@debian:~$ docker network inspect bridge 
+       debian@debian:~$ docker network inspect bridge
        [
            {
                "Name": "bridge",
@@ -53,7 +58,7 @@
            }
        ]
     ```
-    
+
     Nous voyons que ce réseau est de type **bridge** et qu'il dispose des adresses IP 172.17.0.0/16 avec comme passerelle par défaut 172.17.0.1. Cette passerelle est un pont virtuel Ethernet, nommé _docker0_ sur notre machine hôte.
     ```youtrack
        root@debian:/home/debian# ifconfig docker0
@@ -69,10 +74,10 @@
 2. a) La commande ```docker pull httpd``` récupère l'image du serveur HTTP d'Apache. Pour lancer notre serveur dans un conteneur accessible depuis l'extérieure, il faut exposer le port d'écoute du serveur vers un port de la machine hôte.
     ```
         docker run -dit --name mon-serveur -p 8080:80 httpd
-    ``` 
+    ```
     [http://localhost:8080](http://localhost:8080)
-    
-   b) 
+
+   b)
    ```
    debian@debian:~$ docker run --rm -it --name container2 --net container:mon-serveur ubuntu
    root@6f4a4065ea1b:/# apt update & apt install net-tools
@@ -82,26 +87,26 @@
    tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
    Active UNIX domain sockets (servers and established)
    Proto RefCnt Flags       Type       State         I-Node   Path
-   root@6f4a4065ea1b:/# 
+   root@6f4a4065ea1b:/#
    ```
    On remarque une activité réseau dans le conteneur2 : le port 80 est en écoute;  or qu'on a rien exécuté dans ce conteneur. On constate donc que le conteneur _mon-serveur_ et le conteneur _conteneur2_ partage la même pile réseau grace à l'option ``` -net container:mon-serveur``` lors de la création du container2.
-   
-   c) 
+
+   c)
    ```youtrack
     debian@debian:~$ docker run --rm -d --name mon-serveur httpd
     bc45985fe12f91e2a7fd88d1eb9bd66871a797c8353e9c97e77a2aad8a46780e
     debian@debian:~$ docker inspect mon-serveur --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
     172.17.0.2
-    debian@debian:~$ docker run --rm -it --name container1 ubuntu 
+    debian@debian:~$ docker run --rm -it --name container1 ubuntu
     root@72aa6665eb16:/# apt update & apt install curl
     root@72aa6665eb16:/# curl 172.17.0.2
     <html><body><h1>It works!</h1></body></html>
     root@72aa6665eb16:/# exit
-    debian@debian:~$ docker run --rm -it --link mon-serveur:server ubuntu 
+    debian@debian:~$ docker run --rm -it --link mon-serveur:server ubuntu
     root@16fe84b74e0e:/# apt update & apt install -y curl
     root@16fe84b74e0e:/# curl server
     <html><body><h1>It works!</h1></body></html>
-    root@16fe84b74e0e:/# 
+    root@16fe84b74e0e:/#
    ```
    L'option **- link mon-serveur:serveur**  crée un lien du _container1_ vers le container _mon-serveur_, plus précisement, Docker récupère dynamiquement l'adresse IP du conteneur _mon-serveur_ dans son interface docker0, puis injecte le lien entre le nom fourni en option qui sert d'alias dans le fichier hosts du conteneur _container1_.
    ```youtrack
@@ -116,15 +121,15 @@
       172.17.0.3      16fe84b74e0e
       root@16fe84b74e0e:/#
    ```
-3. a) 
+3. a)
    ```youtrack
       debian@debian:~$ docker network create -h
       Flag shorthand -h has been deprecated, please use --help
-      
+
       Usage:  docker network create [OPTIONS] NETWORK
-      
+
       Create a network
-      
+
       Options:
             --attachable           Enable manual container attachment
             --aux-address map      Auxiliary IPv4 or IPv6 addresses used by Network driver (default map[])
@@ -142,14 +147,14 @@
         -o, --opt map              Set driver specific options (default map[])
             --scope string         Control the network's scope
             --subnet strings       Subnet in CIDR format that represents a network segment
-      debian@debian:~$ 
+      debian@debian:~$
    ```
    b) Prenons l'addresse __192.168.1.254__ comme addresse de passerelle. Pour avoir 14 clients sans gaspillé l'addresse de notre réseau, il faut prendre le masque sous-réseau __192.168.1.0/28__.
       On a donc la configuration suivante :
    ```youtrack
       debian@debian:~$ docker network create --subnet 192.168.1.0/24 --gateway 192.168.1.254 --ip-range 192.168.1.0/28 -o "com.docker.network.bridge.name=chat0" chat
       b3e235ea3cc1e3d6168d6cc01bb32e9a69f6a334a9a9411ef2d29b21e935f254
-      debian@debian:~$ docker network inspect chat 
+      debian@debian:~$ docker network inspect chat
       [
           {
               "Name": "chat",
@@ -195,7 +200,7 @@
               RX errors 0  dropped 0  overruns 0  frame 0
               TX packets 0  bytes 0 (0.0 B)
               TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-      
+
       docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
               inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
               inet6 fe80::42:f3ff:feae:73c8  prefixlen 64  scopeid 0x20<link>
@@ -204,7 +209,7 @@
               RX errors 0  dropped 0  overruns 0  frame 0
               TX packets 25  bytes 3434 (3.3 KiB)
               TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-      
+
       enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
               inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
               inet6 fe80::a00:27ff:fe9f:ac76  prefixlen 64  scopeid 0x20<link>
@@ -213,7 +218,7 @@
               RX errors 0  dropped 0  overruns 0  frame 0
               TX packets 1827  bytes 179310 (175.1 KiB)
               TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-      
+
       lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
               inet 127.0.0.1  netmask 255.0.0.0
               inet6 ::1  prefixlen 128  scopeid 0x10<host>
@@ -222,8 +227,8 @@
               RX errors 0  dropped 0  overruns 0  frame 0
               TX packets 10  bytes 558 (558.0 B)
               TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-      
-      root@debian:/home/debian# 
+
+      root@debian:/home/debian#
    ```
    c) Création de l'image __mypython2__:
    + Contenu du Dockerfile placé dans le dossier _/home/Dockerfile_ de l'hôte ainsi que le dossier [chat](./chat):
@@ -238,15 +243,15 @@
        ```youtrack
           debian@debian:~/Téléchargements$ docker run -it --rm --name chat_serveur --network chat mypython2
           root@7f47a29dcf76:/# cd /home/
-          root@7f47a29dcf76:/home# python server.py 
-                                          SERVER WORKING 
-          
+          root@7f47a29dcf76:/home# python server.py
+                                          SERVER WORKING
+
         ```
         Son addresse ip est :
         ```youtrack
            debian@debian:/home$ docker inspect chat_serveur --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
            192.168.1.1
-           debian@debian:/home$ 
+           debian@debian:/home$
         ```
     + Lancement des clients :
         ```youtrack
@@ -260,13 +265,13 @@
             Bob: Je suis bob
             You: exit
            DISCONNECTED!!
-            
-           root@f236377f02ee:/home# 
+
+           root@f236377f02ee:/home#
         ```
         Vérification au niveau serveur :
         ```youtrack
-           root@7f47a29dcf76:/home# python server.py 
-                                           SERVER WORKING 
+           root@7f47a29dcf76:/home# python server.py
+                                           SERVER WORKING
            Client (192.168.1.2, 35764) connected  [ Bob ]
            Client (192.168.1.3, 54236) connected  [ Alice ]
            Client (192.168.1.3, 54236) is offline  [ Alice ]
